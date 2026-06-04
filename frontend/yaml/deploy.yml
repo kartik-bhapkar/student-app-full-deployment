@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: student-frontend-deploy
+spec:
+  replicas: 2
+  selector:
+    matchExpressions:
+      - {key: app, operator: In, values: [student-frontend]}
+  template:
+    metadata:
+      name: pod-01
+      labels:
+        app: student-frontend
+    spec:
+      containers:
+        - name: student-frontend-container
+          image: kartikbhapkar07/frontend:latest
+          ports:
+            - containerPort: 80
+          resources:
+            requests:
+              memory: "128Mi"
+              cpu: "100m"
+            limits:
+              memory: "500Mi"
+              cpu: "500m"
